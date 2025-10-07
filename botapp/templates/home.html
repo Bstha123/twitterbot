@@ -1,0 +1,198 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Bot</title>
+    <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+         /* horizontal center * justify-content: center;/
+        align-items: center;     /* vertical center */
+        /* border: 5px solid green; */
+        flex-direction: column;
+        background-color: darkslategrey;
+        color: white;
+    }
+
+    .container {
+        width: 50%; /* 50% of screen */
+        text-align: center;
+            
+    }
+
+   h1{
+    text-align: center;
+   }
+
+    form {
+        display: flex;
+        flex-wrap: wrap; /* wrap buttons if screen is small */
+        justify-content: center; /* center buttons horizontally */
+        gap: 10px; /* spacing between buttons */
+        margin-top: 20px;
+    }
+    
+    button{
+        width: 120px; /* fixed width */
+        height: 40px; /* fixed height */
+        background-color: aqua;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: medium;
+    }
+
+    button:hover {
+        background-color: deepskyblue;
+    }
+
+    ul {
+        margin-top: 20px;
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    li {
+        margin-bottom: 5px;
+    }
+</style>
+</head>
+
+<body>
+    <h1>SK to X</h1>
+    <div id="tweetform">
+        <button data-account="sportslab">SportsLab</button>
+        <button data-account="tennis">Tennis</button>
+        <button data-account="wrestling4u0">WWE</button>
+        <button data-account="football">Football</button>
+    </div>
+
+    <h3>Live Posting Log:</h3>
+    <div class="output-box" id="output">Waiting to start...</div>
+    Display messages from posting -->
+    <!-- <script>
+        const form = document.getElementById("tweetform button");
+        const outputBox = document.getElementById("output");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const account = btn.dataset.account;
+                outputBox.innerHTML = "Starting posting for " + account + "...\n";
+
+                // SSE connection
+                const evtSource = new EventSource(`/post/${account}/`);
+
+                evtSource.onmessage = function(event) {
+                    outputBox.innerHTML += event.data + "<br>";
+                    outputBox.scrollTop = outputBox.scrollHeight;
+                };
+
+                evtSource.onerror = function() {
+                    outputBox.innerHTML += "<br>❌ Connection closed.";
+                    evtSource.close();
+                };
+            });
+        });
+    </script>
+</body>
+</html> --> 
+
+<!-- ------------------------------------- -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SK to X</title>
+    <style>
+        html, body {
+        height: 100%;
+        margin: 0;
+        }
+
+        body {
+        display: flex;
+        font-family: Arial, Helvetica, sans-serif;
+        flex-direction: column;
+        background-color: darkslategrey;
+        color: white;
+        text-align: center;
+        }
+        h1{
+            text-align: center;
+        }
+        
+        button{
+        width: 120px; /* fixed width */
+        height: 40px; /* fixed height */
+        background-color: aqua;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: medium;
+        }
+        button:hover {
+        background-color: deepskyblue;
+        }
+        .output-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 80%;
+            height: 300px;
+            overflow-y: scroll;
+            color: white;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 20px auto;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <h1>SK to X</h1>
+
+    <div id="tweetButtons">
+        <button data-account="sportslab">SportsLab</button>
+        <button data-account="tennis">Tennis</button>
+        <button data-account="wrestling4u0">WWE</button>
+        <button data-account="football">Football</button>
+    </div>
+
+    <h3>Live Posting Log:</h3>
+    <div class="output-box" id="output">Waiting to start...</div>
+
+    <script>
+        const outputBox = document.getElementById("output");
+        const buttons = document.querySelectorAll("#tweetButtons button");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const account = btn.dataset.account;
+
+                outputBox.innerHTML = "Starting posting for " + account + "...\n";
+
+                // SSE connection
+                const evtSource = new EventSource(`/post/${account}/`);
+
+                evtSource.onmessage = function(event) {
+                    outputBox.innerHTML += event.data + "<br>";
+                    outputBox.scrollTop = outputBox.scrollHeight;
+                };
+
+                evtSource.onerror = function() {
+                    outputBox.innerHTML += "<br>❌ Connection closed.";
+                    evtSource.close();
+                };
+            });
+        });
+    </script>
+</body>
+</html>
